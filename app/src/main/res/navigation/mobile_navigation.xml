@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_tracks">
+
+    <fragment
+        android:id="@+id/navigation_tracks"
+        android:name="com.arbonik.myapplication.ui.tracks.TracksFragment"
+        android:label="@string/title_tracks"
+        tools:layout="@layout/fragment_tracks" >
+        <action
+            android:id="@+id/action_navigation_tracks_to_trackInformationFragment"
+            app:destination="@id/trackInformationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_calculator"
+        android:name="com.arbonik.myapplication.ui.calculator.CalculatorFragment"
+        android:label="@string/title_calc"
+        tools:layout="@layout/fragment_calculator" />
+
+    <fragment
+        android:id="@+id/trackInformationFragment"
+        android:name="com.arbonik.myapplication.ui.tracks.trackinformation.TrackInformationFragment"
+        android:label="fragment_track_information"
+        tools:layout="@layout/fragment_track_information" />
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="com.arbonik.myapplication.ui.privateoffice.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+</navigation>

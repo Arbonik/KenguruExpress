@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="track"
+            type="com.arbonik.myapplication.ui.tracks.Track" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/materialCardView"
+        app:cardCornerRadius="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/standard_margin">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:text="@{track.name}"
+                android:id="@+id/tract_name_textView"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Мясо" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:text="@{String.valueOf(track.number)}"
+                android:id="@+id/track_number_textView"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tract_name_textView"
+                android:layout_marginTop="4dp"
+                tools:text="88005553535" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:text="@{track.status}"
+                android:id="@+id/track_status_textView"
+                style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/track_number_textView"
+                android:layout_marginTop="4dp"
+                tools:text="В ПУТИ" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:text="@{track.tkName}"
+                android:id="@+id/tc_name_textView"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/date_update_textView"
+                app:layout_constraintTop_toBottomOf="@id/track_status_textView"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="4dp"
+                tools:text="Деловые линии" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:text="@{String.valueOf(track.latestUpdate())}"
+                android:id="@+id/date_update_textView"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/tc_name_textView"
+                app:layout_constraintTop_toBottomOf="@id/track_status_textView"
+                android:layout_marginTop="4dp"
+                tools:text="04.11.2020" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -1,0 +1,32 @@
+package com.arbonik.myapplication.company
+
+data class Company(
+    val address_legal: String?,
+    val address_real: String?,
+    val bank_title: String?,
+    val bik: String?,
+    val contact_first_name: String?,
+    val contact_last_name: String?,
+    val contact_patronymic: String?,
+    val contact_position: String?,
+    val contact_reason: String?,
+    val correspondent_account: String?,
+    val director_first_name: String?,
+    val director_last_name: String?,
+    val director_patronymic: String?,
+    val email: String?,
+    val full_title: String?,
+    val id: Int?,
+    val inn: String?,
+    val is_active: Boolean?,
+    val is_nds: Boolean?,
+    val kpp: String?,
+    val ogrn: String?,
+    val opf_code: String?,
+    val opf_full: String?,
+    val opf_short: String?,
+    val payment_account: String?,
+    val phone: String?,
+    val short_title: String?,
+    val type: String?
+)
