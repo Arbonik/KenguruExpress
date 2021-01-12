@@ -9,4 +9,10 @@ object Common {
 
     val PRODUCT : ProductReference
         get() = RetrofitClient.retrofit!!.create(ProductReference::class.java)
+
+    val SERVICES : ServicesReference
+        get() = RetrofitClient.retrofit!!.create(ServicesReference::class.java)
+
+    val DEPARTURES: DeparturesReference
+        get() = RetrofitClient.retrofit!!.create(DeparturesReference::class.java)
 }

@@ -1,4 +1,4 @@
-package com.arbonik.myapplication.geography
+package com.arbonik.myapplication.network.data.geography
 
 data class LocalityItem(
     val area: String?,
@@ -7,7 +7,7 @@ data class LocalityItem(
     val country_iso_code: String?,
     val fias: String?,
     val full_title: String?,
-    val id: Int?,
+    val id: String?,
     val kladr: String?,
     val latitude: String?,
     val locality: String?,
@@ -19,3 +19,12 @@ data class LocalityItem(
     val region: String?,
     val region_type: String?
 )
+
+
+
+fun instanceEmptyLocalityItem() = LocalityItem(null, null,null,
+        null,null,null,
+        null,null,null,
+        null,null,null,
+        null, null, null,
+        null,null)

@@ -1,4 +1,4 @@
-package com.arbonik.myapplication.ui.privateoffice.data.model
+package com.arbonik.myapplication.model.login
 
 data class UserResponse(
     val email: String?,

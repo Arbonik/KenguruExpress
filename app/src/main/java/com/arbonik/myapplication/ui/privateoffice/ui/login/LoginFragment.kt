@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.arbonik.myapplication.R
 import com.arbonik.myapplication.network.Common
-import com.arbonik.myapplication.ui.privateoffice.data.model.UserActivation
+import com.arbonik.myapplication.model.login.UserActivation
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

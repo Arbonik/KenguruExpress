@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arbonik.myapplication.R
 import com.arbonik.myapplication.databinding.TrackItemBinding
+import com.arbonik.myapplication.model.Track
+import com.arbonik.myapplication.model.instanceTrack
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
@@ -44,13 +46,10 @@ class TracksFragment : Fragment() {
             (recyclerView.adapter as TrackAdapter).notifyDataSetChanged()
         }
 
-//        tracksViewModel.tracksList.value[]
-//        recyclerView.onCli .adapter .getItemId()
 
         val actionButton = root.findViewById<FloatingActionButton>(R.id.floating_action_button)
             actionButton.setOnClickListener {
                 addTrackTolist()
-//                onTrackCardClicked(root)
             }
 
         return root
@@ -76,7 +75,6 @@ class TracksFragment : Fragment() {
 
                         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                             result = result.copy(number = s.toString().toLong())
-
                         }
                         override fun afterTextChanged(s: Editable?) {
                         }

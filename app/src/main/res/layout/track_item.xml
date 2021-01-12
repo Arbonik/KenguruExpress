@@ -6,7 +6,7 @@
     <data>
         <variable
             name="track"
-            type="com.arbonik.myapplication.ui.tracks.Track" />
+            type="com.arbonik.myapplication.model.Track" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

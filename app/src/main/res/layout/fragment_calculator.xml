@@ -8,49 +8,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/address_from"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/standard_margin"
-            android:hint="@string/address_from"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                android:id="@+id/address_from_text_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/address_to"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_margin"
-            android:hint="@string/address_to"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/address_from">
-
-            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                android:id="@+id/address_to_text_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+    <include
+        android:id="@+id/include_adressinput"
+        layout="@layout/address_input"
+        />
 
         <LinearLayout
             android:id="@+id/type_parcel_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standard_margin"
-            app:layout_constraintTop_toBottomOf="@id/address_to">
+            app:layout_constraintTop_toBottomOf="@id/include_adressinput">
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
@@ -65,12 +35,12 @@
                 android:id="@+id/type_parcel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/standard_margin"
                 android:gravity="end"
                 app:layout_constraintTop_toBottomOf="@id/address_to"
                 app:singleSelection="true">
 
                 <Button
+                    android:textSize="12dp"
                     android:id="@+id/button_document"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
@@ -78,6 +48,7 @@
                     android:text="@string/documents" />
 
                 <Button
+                    android:textSize="12dp"
                     android:id="@+id/button_cargo"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
@@ -111,12 +82,7 @@
             app:layout_constraintBottom_toTopOf="@id/button_calculate"
             app:layout_constraintTop_toBottomOf="@+id/weight_cargo">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:src="@color/primary" />
         </FrameLayout>
-
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_calculate"

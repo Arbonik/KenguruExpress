@@ -1,6 +1,6 @@
 package com.arbonik.myapplication.network
 
-import com.arbonik.myapplication.geography.Locality
+import com.arbonik.myapplication.network.data.geography.Locality
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

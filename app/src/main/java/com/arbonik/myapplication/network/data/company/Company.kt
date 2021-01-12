@@ -1,4 +1,4 @@
-package com.arbonik.myapplication.company
+package com.arbonik.myapplication.network.data.company
 
 data class Company(
     val address_legal: String?,

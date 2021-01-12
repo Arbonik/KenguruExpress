@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel
 import com.arbonik.myapplication.R
 import com.arbonik.myapplication.network.Common
 import com.arbonik.myapplication.ui.privateoffice.data.LoginRepository
-import com.arbonik.myapplication.ui.privateoffice.data.model.UserAuth
-import com.arbonik.myapplication.ui.privateoffice.data.model.UserRequest
-import com.arbonik.myapplication.ui.privateoffice.data.model.UserResponse
-import com.arbonik.myapplication.ui.privateoffice.data.model.UserToken
+import com.arbonik.myapplication.model.login.UserAuth
+import com.arbonik.myapplication.model.login.UserRequest
+import com.arbonik.myapplication.model.login.UserResponse
+import com.arbonik.myapplication.model.login.UserToken
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

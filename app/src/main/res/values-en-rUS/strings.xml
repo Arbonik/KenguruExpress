@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="width_cargo">Width</string>
+    <string name="title_tracks">Departures</string>
+    <string name="address_from">From where</string>
+    <string name="title_office">Personal Area</string>
+    <string name="address_to">Where to</string>
+    <string name="documents">Documents</string>
+    <string name="long_cargo">Length</string>
+    <string name="cargo">Cargo</string>
+    <string name="height_cargo">la taille</string>
+    <string name="weight_cargo_title">Parcel weight</string>
+    <string name="action_register">Create an account</string>
+    <string name="action_sign_in_short">To come in</string>
+    <string name="welcome">Welcome</string>
+    <string name="invalid_username">Invalid login</string>
+    <string name="invalid_password">Password must be at least 8 characters long, have uppercase and lowercase letters</string>
+    <string name="patronymic_hint">middle name</string>
+    <string name="title_calc" translatable="false">Calculate</string>
+    <string name="surname_hint">Surname</string>
+    <string name="name_hint">Name</string>
+    <string name="phone_hint">Telephone</string>
+    <string name="company_hint">Company</string>
+    <string name="commentary_hint">Comment</string>
+    <string name="forgotten_password">Forgot your password?</string>
+    <string name="login_failed">Inappropriate login</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AdressInputText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_marginHorizontal"> @dimen/standard_margin</item>
+        <item name="android:layout_marginVertical"> @dimen/standard_margin</item>
+    </style>
+</resources>

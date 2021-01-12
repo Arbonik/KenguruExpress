@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.arbonik.myapplication.R
-import com.arbonik.myapplication.ui.tracks.Track
+import com.arbonik.myapplication.model.Track
 import com.google.gson.Gson
 
 class TrackInformationFragment : Fragment() {
@@ -21,7 +21,7 @@ class TrackInformationFragment : Fragment() {
         var view = inflater.inflate(R.layout.fragment_track_information, container, false)
         val text = Gson().fromJson(arguments?.getString("ket"), Track::class.java)
             Log.d("DEBUGG", text.toString())
-        view.findViewById<TextView>(R.id.textNumber).text = text.toString()
+        view.findViewById<TextView>(R.id.track_number).text = text.toString()
 
         return view
     }

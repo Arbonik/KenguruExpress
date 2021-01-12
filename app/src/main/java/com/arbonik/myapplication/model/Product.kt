@@ -1,15 +1,12 @@
-package com.arbonik.myapplication.product
+package com.arbonik.myapplication.model
 
-data class ProductResponse(
+data class Product(
     val comment: String?,
     val delivery_type: String?,
     val height: String?,
-    val id: Int?,
     val length: String?,
     val profile: Int?,
     val quantity: Int?,
-    val volume: String?,
-    val volumetric_weight: String?,
     val weight: String?,
     val width: String?
 )

@@ -1,6 +1,6 @@
 package com.arbonik.myapplication.network
 
-import com.arbonik.myapplication.ui.privateoffice.data.model.*
+import com.arbonik.myapplication.model.login.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST

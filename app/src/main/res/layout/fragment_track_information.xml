@@ -1,15 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/primary"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.arbonik.myapplication.ui.tracks.trackinformation.TrackInformationFragment">
+<layout>
+    <data>
+        <variable
+            name="track"
+            type="com.arbonik.myapplication.model.Product" />
+    </data>
+<!--    <data>-->
+<!--        <variable-->
+<!--            name="history"-->
+<!--            type="java.util.List&lt;com.arbonik.myapplication.ui.tracks.trackinformation.StatusRow&gt;" />-->
+<!--    </data>-->
 
-    <TextView
-        android:id="@+id/textNumber"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/primary"
+        android:orientation="vertical"
+        tools:context="com.arbonik.myapplication.ui.tracks.trackinformation.TrackInformationFragment">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/track_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{}" />
+
+        <TextView
+            android:id="@+id/company_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Company name" />
+
+        <TextView
+            android:id="@+id/movement_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="movement_date" />
+
+        <TextView
+            android:id="@+id/product_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="product_weight" />
+
+        <ListView
+            android:id="@+id/status_rows"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+
+    </LinearLayout>
+</layout>

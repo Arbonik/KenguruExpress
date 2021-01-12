@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_calc" translatable="false">Рассчитать</string>
+    <string name="title_tracks">Отправления</string>
+    <string name="title_office">Личный кабинет</string>
+    <string name="address_from">Откуда</string>
+    <string name="address_to">Куда</string>
+    <string name="documents">Документы</string>
+    <string name="cargo">Груз</string>
+    <string name="long_cargo">Длинна</string>
+    <string name="height_cargo">Высота</string>
+    <string name="width_cargo">Ширина</string>
+    <string name="weight_cargo_title">Вес посылки</string>
+    <string name="action_register">Создать аккаунт</string>
+    <string name="action_sign_in_short">Войти</string>
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="invalid_username">Неправильный логин</string>
+    <string name="invalid_password">Пароль должен быть длинной от 8 символов, иметь большую и маленькую букву</string>
+    <string name="surname_hint">Фамилия</string>
+    <string name="name_hint">Имя</string>
+    <string name="phone_hint">Телефон</string>
+    <string name="company_hint">Компания</string>
+    <string name="commentary_hint">Комментарий</string>
+    <string name="forgotten_password">Забыли пароль?</string>
+    <string name="patronymic_hint">Отчество</string>
+    <string name="login_failed">Неподходящий логин</string>
+</resources>

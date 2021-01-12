@@ -1,7 +1,7 @@
 package com.arbonik.myapplication.network
 
-import com.arbonik.myapplication.product.Product
-import com.arbonik.myapplication.product.ProductResponse
+import com.arbonik.myapplication.model.Product
+import com.arbonik.myapplication.network.data.ProductResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.PATCH

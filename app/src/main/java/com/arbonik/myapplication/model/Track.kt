@@ -1,4 +1,4 @@
-package com.arbonik.myapplication.ui.tracks
+package com.arbonik.myapplication.model
 
 import android.os.Build
 import androidx.annotation.RequiresApi
