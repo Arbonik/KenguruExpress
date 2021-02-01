@@ -27,9 +27,9 @@ class UIProduct : BaseObservable(), Product{
         }
 
     @get:Bindable
-    override var lenght : String = ""
+    override var length : String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.lenght)
+            notifyPropertyChanged(BR.length)
         }
 }

@@ -9,10 +9,8 @@ import com.arbonik.myapplication.network.models.DeliveryType
 import com.arbonik.myapplication.model.LocalityRepository
 import com.arbonik.myapplication.model.Product
 import com.arbonik.myapplication.network.models.ProductRequest
-import com.arbonik.myapplication.network.models.ProductResponse
 import com.arbonik.myapplication.network.models.geography.LocalityResponse
 import com.arbonik.myapplication.repositories.CalculateRepository
-import com.wajahatkarim3.easyvalidation.core.collection_ktx.regexList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -45,8 +43,8 @@ class CalculatorViewModel : ViewModel() {
                         productLiveData.value = product
                     }
                     DeliveryType.CARGO -> {
-                        if (product.lenght.isNotBlank() && product.width.isNotBlank() && product.height.isNotBlank())
-                            if (product.lenght.toDouble() > 0.0 && product.width.toDouble() > 0.0 && product.height.toDouble() > 0.0) {
+                        if (product.length.isNotBlank() && product.width.isNotBlank() && product.height.isNotBlank())
+                            if (product.length.toDouble() > 0.0 && product.width.toDouble() > 0.0 && product.height.toDouble() > 0.0) {
                                 productLiveData.value = product
                             }
                     }
@@ -54,20 +52,15 @@ class CalculatorViewModel : ViewModel() {
     }
 
     fun createProduct() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO ) {
             val req = ProductRequest(
                 height = productLiveData.value?.height.toString(),
                 weight = productLiveData.value?.weight.toString(),
-                lenght = productLiveData.value?.lenght.toString(),
+                length = productLiveData.value?.length.toString(),
                 width = productLiveData.value?.width.toString(),
                 delivery_type = typeProductLiveData.value?.type.toString()
             )
-
-            Log.d("WHAT THE FICUK", req.toString())
             val result = productRepository.createCargo(req)
-            Log.d("WHAT THE FICUK", result.request().url().toString())
-                var body = result.execute().body()
-            Log.d("WHAT THE FICUK", body.toString())
         }
     }
 

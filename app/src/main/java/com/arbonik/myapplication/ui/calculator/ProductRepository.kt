@@ -6,7 +6,7 @@ import com.arbonik.myapplication.network.Common
 import com.arbonik.myapplication.product.ProductValidator
 
 class ProductRepository{
-    suspend fun createCargo(productRequest : ProductRequest) = Common.PRODUCT.createProduct(productRequest)
+    fun createCargo(productRequest : ProductRequest) = Common.PRODUCT.createProduct(productRequest).execute().body()
 
 //    suspend fun createCargo(){
 //        createCargo(currentProductRequest.value!!)
