@@ -1,7 +1,7 @@
 package com.arbonik.myapplication
 
 import com.arbonik.myapplication.network.Common
-import com.arbonik.myapplication.network.data.DeparturesRequest
+import com.arbonik.myapplication.network.models.DeparturesRequest
 import org.junit.Test
 
 class ApiTest {

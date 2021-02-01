@@ -1,55 +1,104 @@
 package com.arbonik.myapplication.ui.calculator
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.arbonik.myapplication.network.data.geography.Locality
-import com.arbonik.myapplication.network.Common
-import com.arbonik.myapplication.product.Tariff
-import com.arbonik.myapplication.product.instanceTariff
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import androidx.lifecycle.viewModelScope
+import com.arbonik.myapplication.network.models.DeliveryType
+import com.arbonik.myapplication.model.LocalityRepository
+import com.arbonik.myapplication.model.Product
+import com.arbonik.myapplication.network.models.ProductRequest
+import com.arbonik.myapplication.network.models.ProductResponse
+import com.arbonik.myapplication.network.models.geography.LocalityResponse
+import com.arbonik.myapplication.repositories.CalculateRepository
+import com.wajahatkarim3.easyvalidation.core.collection_ktx.regexList
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class   CalculatorViewModel : ViewModel() {
-    val localityFrom = LocalityRepository()
-    val localityTo = LocalityRepository()
+class CalculatorViewModel : ViewModel() {
 
-//    var idSityRecepient = localityTo.address.
+    private val defaultDeliveryType = DeliveryType.DOCUMENT
+    private val defaultDeliveryCargo = ProductRequest(delivery_type = defaultDeliveryType.type)
 
-    private val _tariffs = MutableLiveData<MutableList<Tariff>>(mutableListOf())
+    private val localityRepository = LocalityRepository()
+    private val calculateRepository = CalculateRepository()
+    private val productRepository = ProductRepository()
 
-    val tariffs : LiveData<MutableList<Tariff>> = _tariffs
+    private val _lovality: MutableLiveData<LocalityResponse> = MutableLiveData()
+    val localityResponse: LiveData<LocalityResponse> = _lovality
 
-    init {
-        for (i in 0..10) {
-            addTarifItem(instanceTariff())
+    var startLocalityResponse: MutableLiveData<LocalityResponse?> = MutableLiveData()
+    var finishLocalityResponse: MutableLiveData<LocalityResponse?> = MutableLiveData()
+
+
+    val typeProductLiveData = MutableLiveData<DeliveryType>(defaultDeliveryType)
+    val productLiveData = MutableLiveData<Product>(defaultDeliveryCargo)
+
+    val tarrifs: LiveData<String> = calculateRepository.tariffs
+
+    fun cargoSettings(product: Product) {
+        if (product.weight.isNotBlank() && product.weight.isNotEmpty())
+            if (product.weight.toDouble() > 0.0)
+                when (typeProductLiveData.value) {
+                    DeliveryType.DOCUMENT -> {
+                        productLiveData.value = product
+                    }
+                    DeliveryType.CARGO -> {
+                        if (product.lenght.isNotBlank() && product.width.isNotBlank() && product.height.isNotBlank())
+                            if (product.lenght.toDouble() > 0.0 && product.width.toDouble() > 0.0 && product.height.toDouble() > 0.0) {
+                                productLiveData.value = product
+                            }
+                    }
+                }
+    }
+
+    fun createProduct() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val req = ProductRequest(
+                height = productLiveData.value?.height.toString(),
+                weight = productLiveData.value?.weight.toString(),
+                lenght = productLiveData.value?.lenght.toString(),
+                width = productLiveData.value?.width.toString(),
+                delivery_type = typeProductLiveData.value?.type.toString()
+            )
+
+            Log.d("WHAT THE FICUK", req.toString())
+            val result = productRepository.createCargo(req)
+            Log.d("WHAT THE FICUK", result.request().url().toString())
+                var body = result.execute().body()
+            Log.d("WHAT THE FICUK", body.toString())
         }
     }
-    fun addTarifItem(t : Tariff){
-        _tariffs.postValue(_tariffs.value?.apply {
-                add(t)
-            })
 
+    fun downloadTariffs() {
+//        val departuresRequest = DeparturesRequest(
+//
+//        )
+        val departuresResponce = calculateRepository.createDeparture()
+        viewModelScope.launch(Dispatchers.IO) {
+            calculateRepository.downloadTariffs()
+        }
     }
-}
 
+    fun setupStartLocality(fullName: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = localityRepository.oneLocationSearch(fullName)
+            startLocalityResponse.postValue(result)
+        }
+    }
 
-class LocalityRepository{
-    val COUNT_IN_REQUEST = 10
+    fun setupFinishLocality(fullName: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = localityRepository.oneLocationSearch(fullName)
+            finishLocalityResponse.postValue(result)
+        }
+    }
 
-    private val _address = MutableLiveData<Locality>()
-    val address: LiveData<Locality> = _address
-
-    fun localitySearch(term: String) {
-        Common.GEOGRAPHY.locality(term, COUNT_IN_REQUEST)
-                .enqueue(object : Callback<Locality> {
-                    override fun onResponse(call: Call<Locality>, response: Response<Locality>) {
-                        _address.postValue(response.body())
-                    }
-                    override fun onFailure(call: Call<Locality>, t: Throwable) {
-
-                    }
-                })
+    fun localitySearch(locality: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = localityRepository.localitySearch(locality)
+            _lovality.postValue(result)
+        }
     }
 }

@@ -1,6 +1,6 @@
 package com.arbonik.myapplication.ui.privateoffice.data
 
-import com.arbonik.myapplication.model.login.UserResponse
+import com.arbonik.myapplication.network.models.login.UserResponse
 
 /**
  * Class that requests authentication and user information from the remote data source and

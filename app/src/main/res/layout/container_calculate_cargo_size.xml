@@ -1,46 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_margin="@dimen/standard_margin"
-    android:layout_height="wrap_content">
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_weight="33"
-        android:layout_width="wrap_content"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="UIproduct"
+            type="com.arbonik.myapplication.model.UIProduct" />
+    </data>
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/calculate_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_margin"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="@string/long_cargo">
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <LinearLayout
+            android:id="@+id/type_parcel_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_margin">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/standard_margin"
+                android:text="Тип посылки:"
+                app:layout_constraintEnd_toStartOf="@+id/type_parcel"
+                app:layout_constraintLeft_toLeftOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_weight="33"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_margin"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="@string/width_cargo">
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/type_parcel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                app:layout_constraintTop_toBottomOf="@id/address_to"
+                app:singleSelection="true">
 
-        <com.google.android.material.textfield.TextInputEditText
+                <Button
+                    android:id="@+id/button_document"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/documents"
+                    android:textSize="12dp"
+                    android:enabled="true"
+                    />
+
+                <Button
+                    android:id="@+id/button_cargo"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cargo"
+                    android:textSize="12dp" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/weight_cargo_container"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_margin"
+            android:hint="@string/weight_cargo_title"
+            app:layout_constraintBottom_toTopOf="@id/calculate_container"
+            app:layout_constraintTop_toBottomOf="@+id/type_parcel_container">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_weight="33"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_margin"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="@string/height_cargo">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/weight_cargo_text_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:text="@={UIproduct.weight}" />
 
-        <com.google.android.material.textfield.TextInputEditText
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/cargoParamLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_margin"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/button_calculate"
+            app:layout_constraintTop_toBottomOf="@+id/weight_cargo_container">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_margin"
+                android:layout_weight="33"
+                android:hint="@string/long_cargo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lengthInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:text="@={UIproduct.lenght}"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_margin"
+                android:layout_weight="33"
+
+                android:hint="@string/width_cargo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/widthInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:text="@={UIproduct.width}"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_margin"
+                android:layout_weight="33"
+                android:hint="@string/height_cargo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/heightInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={UIproduct.height}"
+                    android:inputType="numberDecimal"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

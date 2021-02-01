@@ -35,12 +35,12 @@ class OrderFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_order, container, false)
 
         val addressInputFrom = root.findViewById<AddressInputView>(R.id.address_from_text_input)
-        addressInputFrom.addViewModel(calculatorViewModel.localityFrom,
-                viewLifecycleOwner)
-
-        val addressInputTo = root.findViewById<AddressInputView>(R.id.address_to_text_input)
-        addressInputTo.addViewModel( calculatorViewModel.localityTo,
-                viewLifecycleOwner)
+//        addressInputFrom.addViewModel(calculatorViewModel.localityFrom,
+//                viewLifecycleOwner)
+//
+//        val addressInputTo = root.findViewById<AddressInputView>(R.id.address_to_text_input)
+//        addressInputTo.addViewModel( calculatorViewModel.localityTo,
+//                viewLifecycleOwner)
 
         val recepierContainer = root.findViewById<ProfileOrderLayout>(R.id.recepier_include)
         val senderContainer = root.findViewById<ProfileOrderLayout>(R.id.sender_include)

@@ -10,79 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <include
-        android:id="@+id/include_adressinput"
-        layout="@layout/address_input"
-        />
+        <include
+            android:id="@+id/include_adressinput"
+            layout="@layout/address_input" />
 
-        <LinearLayout
-            android:id="@+id/type_parcel_container"
+        <include
+            app:layout_constraintTop_toBottomOf="@id/include_adressinput"
+            layout="@layout/container_calculate_cargo_size"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_margin"
-            app:layout_constraintTop_toBottomOf="@id/include_adressinput">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/standard_margin"
-                android:text="Тип посылки:"
-                app:layout_constraintEnd_toStartOf="@+id/type_parcel"
-                app:layout_constraintLeft_toLeftOf="parent" />
-
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/type_parcel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                app:layout_constraintTop_toBottomOf="@id/address_to"
-                app:singleSelection="true">
-
-                <Button
-                    android:textSize="12dp"
-                    android:id="@+id/button_document"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/documents" />
-
-                <Button
-                    android:textSize="12dp"
-                    android:id="@+id/button_cargo"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/cargo"
-
-                    />
-            </com.google.android.material.button.MaterialButtonToggleGroup>
-
-        </LinearLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/weight_cargo"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_margin"
-            android:hint="@string/weight_cargo_title"
-            app:layout_constraintBottom_toTopOf="@id/calculate_container"
-            app:layout_constraintTop_toBottomOf="@+id/type_parcel_container">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <FrameLayout
-            android:id="@+id/calculate_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/button_calculate"
-            app:layout_constraintTop_toBottomOf="@+id/weight_cargo">
-
-        </FrameLayout>
+             />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_calculate"
@@ -90,8 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standard_margin"
             android:text="@string/title_calc"
-            app:layout_constraintTop_toBottomOf="@id/calculate_container"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calculate_container" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

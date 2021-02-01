@@ -1,14 +1,10 @@
 package com.arbonik.myapplication
 
-import android.location.Location
 import android.util.Log
-import com.arbonik.myapplication.network.data.geography.instanceEmptyLocalityItem
 import okhttp3.*
-import okhttp3.internal.ws.WebSocketProtocol
 import okio.ByteString
 import org.junit.Test
 import java.io.IOException
-import java.net.SocketAddress
 
 class CostDistanceTest {
     // координаты барнаула

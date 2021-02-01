@@ -1,12 +1,8 @@
 package com.arbonik.myapplication.model
 
-data class Product(
-    val comment: String?,
-    val delivery_type: String?,
-    val height: String?,
-    val length: String?,
-    val profile: Int?,
-    val quantity: Int?,
-    val weight: String?,
-    val width: String?
-)
+interface Product {
+    var weight : String
+    var height : String
+    var width : String
+    var lenght : String
+}

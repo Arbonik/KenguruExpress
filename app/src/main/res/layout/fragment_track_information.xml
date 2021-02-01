@@ -3,7 +3,7 @@
     <data>
         <variable
             name="track"
-            type="com.arbonik.myapplication.model.Product" />
+            type="com.arbonik.myapplication.network.models.ProductRequest" />
     </data>
 <!--    <data>-->
 <!--        <variable-->

@@ -7,13 +7,4 @@ data class OrderData(
     var phoneNumber: String,
     var company: String,
     var comment: String? = null
-) {
-    companion object {
-        fun instance() = OrderData(
-            "q", "q", "q", "q",
-            "q", "q"
-        )
-
-    }
-}
-
+)
