@@ -4,20 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.Button
+import android.widget.LinearLayout
 import androidx.databinding.Observable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.fragment.findNavController
 import com.arbonik.myapplication.R
 import com.arbonik.myapplication.databinding.ContainerCalculateCargoSizeBinding
 import com.arbonik.myapplication.model.UIProduct
-import com.arbonik.myapplication.network.models.DeliveryType
-import com.arbonik.myapplication.product.Tariff
+import com.arbonik.myapplication.model.cargo.CargoType
 import com.arbonik.myapplication.ui.views.AddressInputView
-import com.google.android.material.button.MaterialButtonToggleGroup
 
 class CalculatorFragment : Fragment() {
 
@@ -49,11 +47,12 @@ class CalculatorFragment : Fragment() {
 
         val calculateButton = root.findViewById<Button>(R.id.button_calculate)
         calculateButton.setOnClickListener {
-//            viewModel.downloadTariffs()
             viewModel.createProduct()
+            findNavController().navigate(R.id.action_navigation_calculator_to_tariffsListFragment)
         }
-        viewModel.tarrifs.observe(viewLifecycleOwner) {
-
+        viewModel.currentCargoes.observe(viewLifecycleOwner){
+            if (it != null)
+            viewModel.downloadTariffs(it)
         }
 
         //layout с настройками груза
@@ -70,40 +69,15 @@ class CalculatorFragment : Fragment() {
             when (checkedId) {
                 R.id.button_document -> {
                     containerCalculateCargoSizeBinding.cargoParamLayout.visibility = View.GONE
-                    viewModel.typeProductLiveData.value = DeliveryType.DOCUMENT
+                    viewModel.typeProductLiveData.value = CargoType.DOCUMENT
                 }
                 R.id.button_cargo -> {
                     containerCalculateCargoSizeBinding.cargoParamLayout.visibility = View.VISIBLE
-                    viewModel.typeProductLiveData.value = DeliveryType.CARGO
+                    viewModel.typeProductLiveData.value = CargoType.CARGO
                 }
             }
         }
 
         return root
-    }
-
-    inner class TariffAdapter(val tariffs: LiveData<MutableList<Tariff>>) :
-        RecyclerView.Adapter<TariffAdapter.TariffViewHolder>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = TariffViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.tariff_item, parent, false)
-        )
-
-        override fun onBindViewHolder(holder: TariffViewHolder, position: Int) {
-//            holder.onBind(tariffs.value?.get(position))
-        }
-
-        override fun getItemCount() = tariffs.value?.size ?: 0
-
-        inner class TariffViewHolder(item: View) : RecyclerView.ViewHolder(item) {
-//            val tariffItem = TariffItemBinding.bind(item)
-//            fun onBind(tariff: Tariff?) {
-//                tariffItem.tariff = tariff
-//                tariffItem.tariffOrder.setOnClickListener {
-//                    activity?.findNavController(R.id.nav_host_fragment)
-//                        ?.navigate(R.id.action_navigation_calculator_to_orderFragment)
-//                }
-//            }
-        }
     }
 }

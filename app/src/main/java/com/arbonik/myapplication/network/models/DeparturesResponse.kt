@@ -1,6 +1,6 @@
 package com.arbonik.myapplication.network.models
 
-data class DeparturesResponce(
+data class DeparturesResponse(
     val cargoes: List<Int>?,
     val delivery: Boolean?,
     val id: Int?,

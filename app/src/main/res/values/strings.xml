@@ -31,6 +31,8 @@
     <string name="commentary_hint">Комментарий</string>
     <string name="forgotten_password">Забыли пароль?</string>
     <string name="patronymic_hint">Отчество</string>
+    <string name="price_filter">По цене</string>
+    <string name="delivery_filter">По скорости доставки</string>
 
 
 </resources>

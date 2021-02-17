@@ -1,12 +1,20 @@
 package com.arbonik.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.arbonik.myapplication.model.cargo.Cargo
+import com.arbonik.myapplication.product.CargoCreator
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +31,5 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_tracks, R.id.navigation_calculator, R.id.navigation_login))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
     }
 }

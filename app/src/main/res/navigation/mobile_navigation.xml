@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_navigation_calculator_to_orderFragment"
             app:destination="@id/orderFragment" />
+        <action
+            android:id="@+id/action_navigation_calculator_to_tariffsListFragment"
+            app:destination="@id/tariffsListFragment" />
     </fragment>
 
     <fragment
@@ -40,4 +43,9 @@
         android:name="com.arbonik.myapplication.ui.order.OrderFragment"
         android:label="fragment_order"
         tools:layout="@layout/fragment_order" />
+    <fragment
+        android:id="@+id/tariffsListFragment"
+        android:name="com.arbonik.myapplication.ui.tariffs.TariffsListFragment"
+        android:label="tariffs_list_fragment"
+        tools:layout="@layout/tariffs_list_fragment" />
 </navigation>

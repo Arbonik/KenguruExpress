@@ -1,6 +1,7 @@
 package com.arbonik.myapplication.network.models
 
 import com.arbonik.myapplication.model.Product
+import com.arbonik.myapplication.model.cargo.Cargo
 
 data class ProductRequest(
     val delivery_type: String? = "",
@@ -12,8 +13,3 @@ data class ProductRequest(
     override var width: String = "",
     val comment: String? = "No comment",
 ) : Product
-
-enum class DeliveryType(val type: String) {
-    DOCUMENT("doc"),
-    CARGO("cargo")
-}

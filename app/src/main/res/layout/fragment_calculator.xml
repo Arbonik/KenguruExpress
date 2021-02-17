@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standard_margin"
             android:text="@string/title_calc"
-            app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintTop_toBottomOf="@id/calculate_container" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

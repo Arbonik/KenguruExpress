@@ -1,35 +1,38 @@
 package com.arbonik.myapplication
 
+import android.util.Log
 import com.arbonik.myapplication.network.Common
 import com.arbonik.myapplication.network.models.DeparturesRequest
+import com.arbonik.myapplication.network.toProductRequest
+import com.arbonik.myapplication.product.CargoCreator
+import okhttp3.WebSocket
 import org.junit.Test
 
 class ApiTest {
+
+    val cargo = CargoCreator.createCargo(1, 1, 1, 1)
+
     @Test
-    fun ServiceTest(){
-        val responce = Common.SERVICES.gerService( 10).execute()
-        if(responce.isSuccessful)
-        {
-            println(responce.body())
-        }
-        else{
-                println("ERROR")
-        }
+    fun CreateCargo() {
+        val responce = Common.PRODUCT.createProduct(cargo.toProductRequest())
+
+        val a = responce.execute()
+        println("asd")
+        println(a.body().toString())
     }
 
     @Test
-    fun DeparturesTest(){
+    fun DeparturesTest() {
         val responce = Common.DEPARTURES.departuresCreate(
             DeparturesRequest(
-                null, true, true, 1,1, null
-        )
+                listOf(41), true, true, 1, 2, null
+            )
         ).execute()
-        if(responce.isSuccessful)
-        {
+        if (responce.isSuccessful) {
             println(responce.body())
-        }
-        else{
-                println("ERROR")
+        } else {
+            println("ERROR")
         }
     }
+
 }
