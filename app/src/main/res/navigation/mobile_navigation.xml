@@ -31,12 +31,12 @@
     <fragment
         android:id="@+id/trackInformationFragment"
         android:name="com.arbonik.myapplication.ui.tracks.trackinformation.TrackInformationFragment"
-        android:label="fragment_track_information"
+        android:label="@string/track_info_label"
         tools:layout="@layout/fragment_track_information" />
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.arbonik.myapplication.ui.privateoffice.ui.login.LoginFragment"
-        android:label="fragment_login"
+        android:label="@string/profile_label"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/orderFragment"
@@ -46,6 +46,6 @@
     <fragment
         android:id="@+id/tariffsListFragment"
         android:name="com.arbonik.myapplication.ui.tariffs.TariffsListFragment"
-        android:label="tariffs_list_fragment"
+        android:label="@string/tariffs_label"
         tools:layout="@layout/tariffs_list_fragment" />
 </navigation>

@@ -16,6 +16,7 @@ import com.arbonik.myapplication.databinding.ContainerCalculateCargoSizeBinding
 import com.arbonik.myapplication.model.UIProduct
 import com.arbonik.myapplication.model.cargo.CargoType
 import com.arbonik.myapplication.ui.views.AddressInputView
+import com.google.android.material.snackbar.Snackbar
 
 class CalculatorFragment : Fragment() {
 
@@ -47,12 +48,16 @@ class CalculatorFragment : Fragment() {
 
         val calculateButton = root.findViewById<Button>(R.id.button_calculate)
         calculateButton.setOnClickListener {
-            viewModel.createProduct()
-            findNavController().navigate(R.id.action_navigation_calculator_to_tariffsListFragment)
+                if (viewModel.cargoSetSettings())
+                    viewModel.createProduct()
+                else
+                    Snackbar.make(requireContext(), root,"заполните все поля!", Snackbar.LENGTH_SHORT).show()
+
+//            findNavController().navigate(R.id.action_navigation_calculator_to_tariffsListFragment)
         }
-        viewModel.currentCargoes.observe(viewLifecycleOwner){
+        viewModel.currentCargoes.observe(viewLifecycleOwner) {
             if (it != null)
-            viewModel.downloadTariffs(it)
+                viewModel.downloadTariffs(it)
         }
 
         //layout с настройками груза
@@ -60,9 +65,11 @@ class CalculatorFragment : Fragment() {
         containerCalculateCargoSizeBinding = ContainerCalculateCargoSizeBinding.bind(cargoView)
         var uiProduct = UIProduct()
         containerCalculateCargoSizeBinding.uIproduct = uiProduct
-        containerCalculateCargoSizeBinding.uIproduct?.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+        containerCalculateCargoSizeBinding.uIproduct?.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                viewModel.cargoSettings(uiProduct)
+                viewModel.cargoSetSettings(uiProduct)
+
             }
         })
         containerCalculateCargoSizeBinding.typeParcel.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
@@ -80,4 +87,6 @@ class CalculatorFragment : Fragment() {
 
         return root
     }
+
+
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
@@ -8,7 +9,6 @@
     </data>
 
     <LinearLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/calculate_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,6 +56,15 @@
                     android:textSize="12dp" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
+            <ImageButton
+                android:id="@+id/recent_cargo_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#00FFFFFF"
+                android:paddingLeft="8dp"
+                android:src="@drawable/ic_baseline_history_24"
+                android:tint="@color/primary" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout

@@ -33,6 +33,9 @@
     <string name="patronymic_hint">Отчество</string>
     <string name="price_filter">По цене</string>
     <string name="delivery_filter">По скорости доставки</string>
+    <string name="tariffs_label">Тарифы</string>
+    <string name="profile_label">Профиль</string>
+    <string name="track_info_label">Информация о треке</string>
 
 
 </resources>

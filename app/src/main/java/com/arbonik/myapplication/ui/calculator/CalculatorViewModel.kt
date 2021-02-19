@@ -1,8 +1,10 @@
 package com.arbonik.myapplication.ui.calculator
 
 import android.app.Application
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.arbonik.myapplication.KenguruApplication.Companion.departuresRepository
 import com.arbonik.myapplication.KenguruApplication.Companion.localityRepository
 import com.arbonik.myapplication.KenguruApplication.Companion.productRepository
@@ -20,8 +22,8 @@ class CalculatorViewModel(application: Application) : AndroidViewModel(applicati
     private val defaultDeliveryType = CargoType.DOCUMENT
     private val defaultDeliveryCargo = ProductRequest(delivery_type = defaultDeliveryType.type)
 
-    private val _lovality: MutableLiveData<LocalityResponse> = MutableLiveData()
-    val localityResponse: LiveData<LocalityResponse> = _lovality
+    private val _loсality: MutableLiveData<LocalityResponse> = MutableLiveData()
+    val localityResponse: LiveData<LocalityResponse> = _loсality
 
     var startLocalityResponse: MutableLiveData<LocalityResponse?> = MutableLiveData()
     var finishLocalityResponse: MutableLiveData<LocalityResponse?> = MutableLiveData()
@@ -30,41 +32,25 @@ class CalculatorViewModel(application: Application) : AndroidViewModel(applicati
     val typeProductLiveData = MutableLiveData<CargoType>(defaultDeliveryType)
     val productLiveData = MutableLiveData<Product>(defaultDeliveryCargo)
 
-
-    fun cargoSettings(product: Product) {
-        if (product.weight.isNotBlank() && product.weight.isNotEmpty())
-            if (product.weight.toDouble() > 0.0)
-                when (typeProductLiveData.value) {
-                    CargoType.DOCUMENT -> {
-                        productLiveData.value = product
-                    }
-                    CargoType.CARGO -> {
-                        if (product.length.isNotBlank() && product.width.isNotBlank() && product.height.isNotBlank())
-                            if (product.length.toDouble() > 0.0 && product.width.toDouble() > 0.0 && product.height.toDouble() > 0.0) {
-                                productLiveData.value = product
-                            }
-                    }
-                }
-    }
-
+    //Обновляется при создании груза на сервере
     val currentCargoes: MutableLiveData<ProductResponse> = MutableLiveData()
-    fun createProduct() {
-        viewModelScope.launch(Dispatchers.IO)  {
-                val req = ProductRequest(
-                    height = productLiveData.value?.height.toString(),
-                    weight = productLiveData.value?.weight.toString(),
-                    length = productLiveData.value?.length.toString(),
-                    width = productLiveData.value?.width.toString(),
-                    delivery_type = typeProductLiveData.value?.type.toString()
-                )
-                val value = productRepository.createCargo(req).execute().body()
-                Log.d("qweqw", value.toString())
-                currentCargoes.postValue(value!!)
-            }
 
+    fun createProduct() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val req = ProductRequest(
+                height = productLiveData.value?.height.toString(),
+                weight = productLiveData.value?.weight.toString(),
+                length = productLiveData.value?.length.toString(),
+                width = productLiveData.value?.width.toString(),
+                delivery_type = typeProductLiveData.value?.type.toString()
+            )
+            val value = productRepository.createCargo(req).execute().body()
+            currentCargoes.postValue(value!!)
+        }
     }
 
-   fun downloadTariffs(cargoRequest : ProductResponse) {
+    //Ищет тарифы для указанного груза и скачивает их в базу данных
+    fun downloadTariffs(cargoRequest: ProductResponse) {
         viewModelScope.launch(Dispatchers.IO) {
             val departuresRequest = DeparturesRequest(
                 listOf(cargoRequest.id!!),
@@ -96,7 +82,31 @@ class CalculatorViewModel(application: Application) : AndroidViewModel(applicati
     fun localitySearch(locality: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = localityRepository.localitySearch(locality)
-            _lovality.postValue(result)
+            _loсality.postValue(result)
         }
     }
+
+    fun cargoSetSettings(product: Product = productLiveData.value!!): Boolean {
+        if (hasValue(product.weight))
+            when (typeProductLiveData.value) {
+                CargoType.DOCUMENT -> {
+                    productLiveData.value = product
+                    return true
+                }
+                CargoType.CARGO -> {
+                    if (hasValue(product.length) && hasValue(product.width) && hasValue(product.height)) {
+                        productLiveData.value = product
+                        return true
+                    } else return false
+                }
+            }
+        return false
+    }
+
+    private fun hasValue(value: String) = try {
+        value.isNotBlank() && value.isNotEmpty() && (value.toDouble() > 0)
+    } catch (e: NumberFormatException) {
+        false
+    }
+
 }
