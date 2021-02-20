@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_tracks">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/navigation_tracks"
@@ -20,9 +20,6 @@
         android:name="com.arbonik.myapplication.ui.calculator.CalculatorFragment"
         android:label="@string/title_calc"
         tools:layout="@layout/fragment_calculator" >
-        <action
-            android:id="@+id/action_navigation_calculator_to_orderFragment"
-            app:destination="@id/orderFragment" />
         <action
             android:id="@+id/action_navigation_calculator_to_tariffsListFragment"
             app:destination="@id/tariffsListFragment" />
@@ -47,5 +44,20 @@
         android:id="@+id/tariffsListFragment"
         android:name="com.arbonik.myapplication.ui.tariffs.TariffsListFragment"
         android:label="@string/tariffs_label"
-        tools:layout="@layout/tariffs_list_fragment" />
+        tools:layout="@layout/tariffs_list_fragment" >
+        <action
+            android:id="@+id/action_tariffsListFragment_to_orderFragment"
+            app:destination="@id/orderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.arbonik.myapplication.ui.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_navigation_login"
+            app:destination="@id/navigation_login"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/mobile_navigation" />
+    </fragment>
 </navigation>

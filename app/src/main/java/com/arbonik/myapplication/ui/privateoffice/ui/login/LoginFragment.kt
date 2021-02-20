@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.arbonik.myapplication.R
 import com.arbonik.myapplication.network.Common
 import com.arbonik.myapplication.network.models.login.UserActivation
@@ -31,6 +32,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
@@ -100,7 +102,7 @@ class LoginFragment : Fragment() {
 
         loginButton.setOnClickListener {
             loadingProgressBar.visibility = View.VISIBLE
-            loginViewModel.login("","")
+            loginViewModel.login("", "")
         }
     }
 
@@ -117,14 +119,17 @@ class LoginFragment : Fragment() {
     }
 }
 
-fun authEmail(){
+fun authEmail() {
     Common.USER.activatedUser(UserActivation("5lm-d0e1c92fc2a559391048", "MTQ"))
-            .enqueue(object : Callback<UserActivation> {
-                override fun onResponse(call: Call<UserActivation>, response: Response<UserActivation>) {
-                    Log.d("RETROFIT", "Activated")
-                }
+        .enqueue(object : Callback<UserActivation> {
+            override fun onResponse(
+                call: Call<UserActivation>,
+                response: Response<UserActivation>
+            ) {
+                Log.d("RETROFIT", "Activated")
+            }
 
-                override fun onFailure(call: Call<UserActivation>, t: Throwable) {
-                }
-            })
+            override fun onFailure(call: Call<UserActivation>, t: Throwable) {
+            }
+        })
 }

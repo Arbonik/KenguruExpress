@@ -1,4 +1,5 @@
 <resources>
+    <string name="id_server">94.230.114.34</string>
     <string name="app_name" translatable="false">KenguruExpress</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_tracks">Отправления</string>
@@ -36,6 +37,7 @@
     <string name="tariffs_label">Тарифы</string>
     <string name="profile_label">Профиль</string>
     <string name="track_info_label">Информация о треке</string>
+
 
 
 </resources>
