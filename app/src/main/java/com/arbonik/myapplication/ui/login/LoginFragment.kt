@@ -3,29 +3,21 @@ package com.arbonik.myapplication.ui.login
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.arbonik.myapplication.R
-import com.arbonik.myapplication.network.Common
-import com.arbonik.myapplication.network.models.login.UserActivation
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.arbonik.myapplication.databinding.FragmentLoginBinding
+import com.arbonik.myapplication.network.models.login.UserRequest
 
 class LoginFragment : Fragment() {
 
-    private lateinit var loginViewModel: LoginViewModel
-
+    private lateinit var viewModel: LoginViewModel
+    private lateinit var loginFragmentBinding: FragmentLoginBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,39 +29,42 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
+        viewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
-//        authEmail()
-        val usernameEditText = view.findViewById<EditText>(R.id.usernameRegister)
-        val passwordEditText = view.findViewById<EditText>(R.id.passwordRegister)
-        val loginButton = view.findViewById<Button>(R.id.login)
-        val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
 
-//        loginViewModel.loginFormState.observe(viewLifecycleOwner,
-//            Observer { loginFormState ->
-//                if (loginFormState == null) {
-//                    return@Observer
-//                }
-//                loginButton.isEnabled = loginFormState.isDataValid
-//                loginFormState.usernameError?.let {
-//                    usernameEditText.error = getString(it)
-//                }
-//                loginFormState.passwordError?.let {
-//                    passwordEditText.error = getString(it)
-//                }
-//            })
-//
-//        loginViewModel.loginResult.observe(viewLifecycleOwner,
-//            Observer { loginResult ->
-//                loginResult ?: return@Observer
-//                loadingProgressBar.visibility = View.GONE
-//                loginResult.error?.let {
-//                    showLoginFailed(it)
-//                }
-//                loginResult.success?.let {
-//                    updateUiWithUser(it)
-//                }
-//            })
+        loginFragmentBinding = FragmentLoginBinding.bind(view)
+
+        loginFragmentBinding.toRegisterFragmentButton.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_login_to_registrationFragment)
+        }
+
+        loginFragmentBinding.loginButton.setOnClickListener {
+            viewModel.login(
+                loginFragmentBinding.usernameRegisterTextEdit.text.toString(),
+                loginFragmentBinding.passwordRegisterTextEdit.text.toString()
+            )
+        }
+        viewModel.loginResult.observe(viewLifecycleOwner){
+            if (it.success !=null){
+                findNavController().navigate(R.id.action_navigation_login_to_profileOrderFragment)
+            }
+            if (it.error != null){
+                loginFragmentBinding.usernameRegisterTextEdit.error = it.error
+            }
+        }
+
+        viewModel.loginFormState.observe(viewLifecycleOwner,
+            Observer { loginFormState ->
+                if (loginFormState == null) {
+                    return@Observer
+                }
+                loginFormState.usernameError?.let {
+                    loginFragmentBinding.usernameRegisterTextEdit.error = getString(it)
+                }
+                loginFormState.passwordError?.let {
+                    loginFragmentBinding.passwordRegisterTextEdit.error = getString(it)
+                }
+            })
 
         val afterTextChangedListener = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -81,39 +76,18 @@ class LoginFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable) {
-                loginViewModel.loginDataChanged(
-                    usernameEditText.text.toString(),
-                    passwordEditText.text.toString()
+                viewModel.loginDataChanged(
+                    loginFragmentBinding.usernameRegisterTextEdit.text.toString(),
+                    loginFragmentBinding.passwordRegisterTextEdit.text.toString()
                 )
             }
         }
-        usernameEditText.addTextChangedListener(afterTextChangedListener)
-        passwordEditText.addTextChangedListener(afterTextChangedListener)
-        passwordEditText.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                loginViewModel.login(
-                    usernameEditText.text.toString(),
-                    passwordEditText.text.toString()
-                )
-            }
-            false
-        }
+        loginFragmentBinding.usernameRegisterTextEdit.addTextChangedListener(
+            afterTextChangedListener
+        )
+        loginFragmentBinding.passwordRegisterTextEdit.addTextChangedListener(
+            afterTextChangedListener
+        )
 
-        loginButton.setOnClickListener {
-            loadingProgressBar.visibility = View.VISIBLE
-            loginViewModel.login("", "")
-        }
-    }
-
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome) + model.displayName
-        // TODO : initiate successful logged in experience
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
-    }
-
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
     }
 }

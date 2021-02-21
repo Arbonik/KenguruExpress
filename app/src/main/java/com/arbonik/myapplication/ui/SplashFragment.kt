@@ -1,24 +1,23 @@
 package com.arbonik.myapplication.ui
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.arbonik.myapplication.R
-
+import com.arbonik.myapplication.network.uriParseToUserActivation
+import com.arbonik.myapplication.ui.privateoffice.data.LoginRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 /**
  * An example full-screen fragment that shows and hides the system UI (i.e.
@@ -64,19 +63,27 @@ class SplashFragment : Fragment() {
 
         (activity as? AppCompatActivity)?.apply {
             supportActionBar?.show()
-            findViewById<BottomNavigationView>(R.id.nav_view).isVisible = true
         }
     }
 
-    private fun nextScreen(){
-        MainScope().launch {
+    private fun nextScreen() {
+        MainScope().launch(Dispatchers.IO) {
             delay(1500)
-            val result = findNavController().popBackStack(R.id.fullscreen_content, true)
-            if (result.not()) {
+            //удаление фрагмента из backstack
+            val deleteThisFragmentFromBackStack =
+                findNavController().popBackStack(R.id.fullscreen_content, true)
+
+            val activityData = requireActivity().intent.data
+            //Если активити было открыто по ссылке для активации аккаунта
+            if (activityData != null) {
+                //анализируем строку
+                val userActivation = uriParseToUserActivation(activityData.toString())
+                if (LoginRepository.activatedUser(userActivation))
+                Snackbar.make(requireContext(), requireView(), "Почта успешно подтверждена", Snackbar.LENGTH_SHORT).show()
+            }
+            if (deleteThisFragmentFromBackStack.not()) {
                 findNavController().navigate(R.id.action_splashFragment_to_navigation_login)
             }
-
-
         }
     }
 }

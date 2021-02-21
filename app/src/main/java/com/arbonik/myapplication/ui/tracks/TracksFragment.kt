@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,17 +24,13 @@ import com.google.gson.Gson
 
 class TracksFragment : Fragment() {
 
-    private lateinit var tracksViewModel: TracksViewModel
+    private val tracksViewModel by viewModels<TracksViewModel>()
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
-        tracksViewModel =
-                ViewModelProvider(this).get(TracksViewModel::class.java)
-
         val root = inflater.inflate(R.layout.fragment_tracks, container, false)
 
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_tracks).apply {

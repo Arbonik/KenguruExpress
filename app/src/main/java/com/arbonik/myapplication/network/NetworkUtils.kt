@@ -2,6 +2,7 @@ package com.arbonik.myapplication.network
 
 import com.arbonik.myapplication.model.cargo.Cargo
 import com.arbonik.myapplication.network.models.ProductRequest
+import com.arbonik.myapplication.network.models.login.UserActivation
 
 fun Cargo.toProductRequest(): ProductRequest {
     return ProductRequest(
@@ -12,4 +13,11 @@ fun Cargo.toProductRequest(): ProductRequest {
         weight = this.weight,
         width = this.width
     )
+}
+fun uriParseToUserActivation(uri : String): UserActivation {
+    val afterSplit = uri.split("/")
+    val token = afterSplit.last()
+    val uid = afterSplit[afterSplit.size - 2]
+    val userActivation = UserActivation(token, uid)
+    return userActivation
 }

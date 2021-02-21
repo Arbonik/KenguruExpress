@@ -16,7 +16,6 @@ class KenguruApplication : Application() {
     }
 
     companion object{
-
         private lateinit var appContext: Context
 
         val database: KenguruDatabase by lazy {
