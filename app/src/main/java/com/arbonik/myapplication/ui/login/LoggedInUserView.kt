@@ -1,4 +1,4 @@
-package com.arbonik.myapplication.ui.privateoffice.ui.login
+package com.arbonik.myapplication.ui.login
 
 /**
  * User details post authentication that is exposed to the UI

@@ -1,11 +1,12 @@
 package com.arbonik.myapplication.ui.privateoffice.data
 
+import android.util.Log
+import com.arbonik.myapplication.network.Common
+import com.arbonik.myapplication.network.models.login.UserActivation
 import com.arbonik.myapplication.network.models.login.UserResponse
-
-/**
- * Class that requests authentication and user information from the remote data source and
- * maintains an in-memory cache of login status and user credentials information.
- */
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 object LoginRepository {
 
@@ -19,8 +20,6 @@ object LoginRepository {
         get() = user != null
 
     init {
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
         user = null
     }
 
@@ -30,13 +29,22 @@ object LoginRepository {
     }
 
     fun login(loginUser : UserResponse ){
-        // handle login
-        setLoggedInUser(loginUser)
+        this.user = loginUser
     }
 
-    private fun setLoggedInUser(loggedInUser: UserResponse) {
-        this.user = loggedInUser
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
+    //Функция для подтверждения нового пользовметеля
+    fun activatedUser(token : String) {
+        Common.USER.activatedUser(UserActivation(token,"MTQ"))
+            .enqueue(object : Callback<UserActivation> {
+                override fun onResponse(
+                    call: Call<UserActivation>,
+                    response: Response<UserActivation>
+                ) {
+                }
+
+                override fun onFailure(call: Call<UserActivation>, t: Throwable) {
+                }
+            })
     }
+
 }

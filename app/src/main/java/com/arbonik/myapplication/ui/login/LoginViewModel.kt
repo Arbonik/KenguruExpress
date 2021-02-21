@@ -1,4 +1,4 @@
-package com.arbonik.myapplication.ui.privateoffice.ui.login
+package com.arbonik.myapplication.ui.login
 
 import android.util.Log
 import android.util.Patterns
@@ -15,52 +15,45 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginViewModel() : ViewModel() {
+class LoginViewModel : ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     private val _loginResult = MutableLiveData<LoginResult>()
 
     fun login(username: String, password: String) {
-// test data
-        val user = UserRequest("zmear@mail.ru", "1234Test")
-
-        auth(user.email!!, user.password!!)
-    }
-
-    private fun auth(username: String, password: String) {
         Common.USER.authefication(UserAuth(password, username))
-                .enqueue(object : Callback<UserToken> {
+            .enqueue(object : Callback<UserToken> {
+                override fun onResponse(call: Call<UserToken>, response: Response<UserToken>) {
+                    Log.d("RETROFIT", "auth success")
+                    LoginRepository.token = response.body()?.auth_token
+                    Log.d("RETROFIT", response.body().toString())
+                    Log.d("RETROFIT", response.errorBody().toString())
+                }
 
-                    override fun onResponse(call: Call<UserToken>, response: Response<UserToken>) {
-                        Log.d("RETROFIT", "auth success")
-                        LoginRepository.token = response.body()?.auth_token
-                        Log.d("RETROFIT", response.body().toString())
-                        Log.d("RETROFIT", response.errorBody().toString())
-                    }
-
-                    override fun onFailure(call: Call<UserToken>, t: Throwable) {
-                        Log.d("RETROFIT", t.message.toString())
-                        _loginResult.value = LoginResult(error = R.string.login_failed)
-                    }
-
-                })
+                override fun onFailure(call: Call<UserToken>, t: Throwable) {
+                    Log.d("RETROFIT", t.message.toString())
+                    _loginResult.postValue(LoginResult(error = R.string.login_failed))
+                }
+            })
     }
+
+
     private fun register(username: String, password: String) {
         Common.USER.createUser(UserRequest(username, password))
-                .enqueue(object : Callback<UserResponse> {
-                    override fun onResponse(
-                            call: Call<UserResponse>,
-                            response: Response<UserResponse>
-                    ) {
-                        Log.d("RETROFIT", "auth success")
-                        LoginRepository.login(response.body() ?: UserResponse("no", 0, null))
-                    }
+            .enqueue(object : Callback<UserResponse> {
+                override fun onResponse(
+                    call: Call<UserResponse>,
+                    response: Response<UserResponse>
+                ) {
+                    Log.d("RETROFIT", "auth success")
+                    LoginRepository.login(response.body() ?: UserResponse("no", 0, null))
+                }
 
-                    override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                        Log.d("RETROFIT", t.message.toString())
-                        _loginResult.value = LoginResult(error = R.string.login_failed)
-                    }
-                })
+                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                    Log.d("RETROFIT", t.message.toString())
+                    _loginResult.value = LoginResult(error = R.string.login_failed)
+                }
+            })
     }
 
     fun loginDataChanged(username: String, password: String) {
@@ -84,6 +77,6 @@ class LoginViewModel() : ViewModel() {
 
     // A placeholder password validation check
     private fun isPasswordValid(password: String): Boolean {
-        return (password.length > 7 )
+        return (password.length > 7)
     }
 }

@@ -1,4 +1,4 @@
-package com.arbonik.myapplication.ui.privateoffice.ui.login
+package com.arbonik.myapplication.ui.login
 
 import android.os.Bundle
 import android.text.Editable
@@ -15,7 +15,6 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.arbonik.myapplication.R
 import com.arbonik.myapplication.network.Common
 import com.arbonik.myapplication.network.models.login.UserActivation
@@ -41,8 +40,8 @@ class LoginFragment : Fragment() {
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 //        authEmail()
-        val usernameEditText = view.findViewById<EditText>(R.id.username)
-        val passwordEditText = view.findViewById<EditText>(R.id.password)
+        val usernameEditText = view.findViewById<EditText>(R.id.usernameRegister)
+        val passwordEditText = view.findViewById<EditText>(R.id.passwordRegister)
         val loginButton = view.findViewById<Button>(R.id.login)
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
 
@@ -117,19 +116,4 @@ class LoginFragment : Fragment() {
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
     }
-}
-
-fun authEmail() {
-    Common.USER.activatedUser(UserActivation("5lm-d0e1c92fc2a559391048", "MTQ"))
-        .enqueue(object : Callback<UserActivation> {
-            override fun onResponse(
-                call: Call<UserActivation>,
-                response: Response<UserActivation>
-            ) {
-                Log.d("RETROFIT", "Activated")
-            }
-
-            override fun onFailure(call: Call<UserActivation>, t: Throwable) {
-            }
-        })
 }

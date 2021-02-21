@@ -1,8 +1,7 @@
-package com.arbonik.myapplication.ui.privateoffice.ui.login
+package com.arbonik.myapplication.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.arbonik.myapplication.ui.privateoffice.data.LoginRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

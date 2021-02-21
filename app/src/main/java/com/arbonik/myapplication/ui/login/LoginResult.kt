@@ -1,4 +1,4 @@
-package com.arbonik.myapplication.ui.privateoffice.ui.login
+package com.arbonik.myapplication.ui.login
 
 /**
  * Authentication result : success (user details) or error message.
