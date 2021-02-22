@@ -9,11 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.arbonik.myapplication.KenguruApplication
 import com.arbonik.myapplication.R
 import com.arbonik.myapplication.network.uriParseToUserActivation
-import com.arbonik.myapplication.ui.privateoffice.data.LoginRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -78,10 +77,11 @@ class SplashFragment : Fragment() {
             if (activityData != null) {
                 //анализируем строку
                 val userActivation = uriParseToUserActivation(activityData.toString())
-                if (LoginRepository.activatedUser(userActivation))
-                Snackbar.make(requireContext(), requireView(), "Почта успешно подтверждена", Snackbar.LENGTH_SHORT).show()
+                KenguruApplication.loginRepository.activatedUser(userActivation)
             }
-            if (deleteThisFragmentFromBackStack.not()) {
+            if (KenguruApplication.loginRepository.isLoggedIn)
+                findNavController().navigate(R.id.action_splashFragment_to_navigationProfileFragment)
+            else if (deleteThisFragmentFromBackStack.not()) {
                 findNavController().navigate(R.id.action_splashFragment_to_navigation_login)
             }
         }

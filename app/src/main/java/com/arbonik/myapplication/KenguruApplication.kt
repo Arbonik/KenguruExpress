@@ -4,8 +4,9 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.arbonik.myapplication.database.KenguruDatabase
-import com.arbonik.myapplication.model.LocalityRepository
+import com.arbonik.myapplication.repositories.LocalityRepository
 import com.arbonik.myapplication.repositories.DeparturesRepository
+import com.arbonik.myapplication.repositories.UserRepository
 import com.arbonik.myapplication.ui.calculator.ProductRepository
 
 class KenguruApplication : Application() {
@@ -33,6 +34,6 @@ class KenguruApplication : Application() {
         val localityRepository by lazy { LocalityRepository(database) }
         val departuresRepository by lazy { DeparturesRepository(database) }
         val productRepository by lazy {  ProductRepository() }
-
+        val loginRepository by lazy { UserRepository(appContext) }
     }
 }

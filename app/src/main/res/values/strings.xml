@@ -38,6 +38,8 @@
     <string name="profile_label">Профиль</string>
     <string name="track_info_label">Информация о треке</string>
     <string name="passwordRetryEditText">Повторите пароль</string>
+    <string name="birthDay">День рождения</string>
+    <string name="updateDataText">Обновить данные</string>
 
 
 </resources>

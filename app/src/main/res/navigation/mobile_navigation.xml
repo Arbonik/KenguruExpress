@@ -66,10 +66,13 @@
             app:destination="@id/navigation_login"
             app:launchSingleTop="true"
             app:popUpTo="@id/mobile_navigation" />
+        <action
+            android:id="@+id/action_splashFragment_to_navigationProfileFragment"
+            app:destination="@id/navigationProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigationProfileFragment"
-        android:name="com.arbonik.myapplication.ui.ProfileOrderFragment"
+        android:name="com.arbonik.myapplication.ui.profile.ProfileFragment"
         android:label="ProfileOrderFragment" >
         <action
             android:id="@+id/action_profileOrderFragment_to_navigation_tracks"

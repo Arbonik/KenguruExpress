@@ -4,14 +4,22 @@
     <data>
 
         <variable
-            name="OrderData"
-            type="com.arbonik.myapplication.profile.OrderData" />
+            name="profileData"
+            type="com.arbonik.myapplication.network.models.login.ProfileData" />
     </data>
 
-    <com.arbonik.myapplication.ui.views.ProfileOrderLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Ваши данные"
+            android:textColor="@color/light_blue_900" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -24,7 +32,7 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={OrderData.name}" />
+                android:text="@={profileData.first_name}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -38,7 +46,7 @@
                 android:id="@+id/surname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={OrderData.surname}" />
+                android:text="@={profileData.last_name}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -52,7 +60,7 @@
                 android:id="@+id/patronymic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={OrderData.patronymic}" />
+                android:text="@={profileData.patronymic}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -66,7 +74,7 @@
                 android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={OrderData.phoneNumber}" />
+                android:text="@={profileData.phone}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -74,28 +82,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/standard_margin"
-            android:hint="@string/company_hint">
+            android:hint="@string/birthDay">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/company"
+                android:id="@+id/birthDayEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={OrderData.company}" />
+                android:text="@={profileData.date_birth}" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/updateProfileDataButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/standard_margin"
-            android:hint="@string/commentary_hint">
+            android:layout_gravity="center"
+            android:padding="16dp"
+            android:text="@string/updateDataText" />
+    </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/commentary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@={OrderData.comment}" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </com.arbonik.myapplication.ui.views.ProfileOrderLayout>
 </layout>

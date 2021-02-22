@@ -1,7 +1,6 @@
 package com.arbonik.myapplication
 
 import android.os.Bundle
-import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -10,9 +9,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.arbonik.myapplication.network.models.login.UserActivation
-import com.arbonik.myapplication.network.uriParseToUserActivation
-import com.arbonik.myapplication.ui.privateoffice.data.LoginRepository
 
 class MainActivity : AppCompatActivity() {
 

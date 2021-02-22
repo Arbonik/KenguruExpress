@@ -12,13 +12,13 @@
 
         <include
             android:id="@+id/sender_include"
-            layout="@layout/profile_order"
+            layout="@layout/fragment_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <include
             android:id="@+id/recepier_include"
-            layout="@layout/profile_order"
+            layout="@layout/fragment_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <Button

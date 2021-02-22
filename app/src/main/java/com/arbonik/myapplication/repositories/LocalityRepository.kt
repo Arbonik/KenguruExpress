@@ -1,6 +1,7 @@
-package com.arbonik.myapplication.model
+package com.arbonik.myapplication.repositories
 
 import com.arbonik.myapplication.database.KenguruDatabase
+import com.arbonik.myapplication.model.LocalityPair
 import com.arbonik.myapplication.network.Common
 
 class LocalityRepository(database: KenguruDatabase){

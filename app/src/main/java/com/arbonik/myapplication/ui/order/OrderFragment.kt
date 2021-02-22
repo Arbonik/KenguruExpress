@@ -6,15 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import androidx.databinding.Observable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.arbonik.myapplication.R
-import com.arbonik.myapplication.databinding.ProfileOrderBinding
-import com.arbonik.myapplication.profile.OrderData
+import com.arbonik.myapplication.databinding.FragmentProfileBinding
 import com.arbonik.myapplication.ui.calculator.CalculatorViewModel
 import com.arbonik.myapplication.ui.views.AddressInputView
-import com.arbonik.myapplication.ui.views.ProfileOrderLayout
 
 class OrderFragment : Fragment() {
 
@@ -42,24 +41,24 @@ class OrderFragment : Fragment() {
 //        addressInputTo.addViewModel( calculatorViewModel.localityTo,
 //                viewLifecycleOwner)
 
-        val recepierContainer = root.findViewById<ProfileOrderLayout>(R.id.recepier_include)
-        val senderContainer = root.findViewById<ProfileOrderLayout>(R.id.sender_include)
+        val recepierContainer = root.findViewById<LinearLayout>(R.id.recepier_include)
+        val senderContainer = root.findViewById<LinearLayout>(R.id.sender_include)
 
         val button = root.findViewById<Button>(R.id.button)
 
-        val recepierBinding = ProfileOrderBinding.bind(recepierContainer)
-        val senderBinding = ProfileOrderBinding.bind(senderContainer)
+        val recepierBinding = FragmentProfileBinding.bind(recepierContainer)
+        val senderBinding = FragmentProfileBinding.bind(senderContainer)
 
         recepierBinding.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
 //                orderViewModel.updateOrderData(recepierBinding.orderData ?: OrderData.instance())
-                Log.d("RE", recepierBinding.orderData.toString())
+                Log.d("RE", recepierBinding.profileData.toString())
             }
         })
 
         button.setOnClickListener {
-            recepierBinding.orderData = senderBinding.orderData
+            recepierBinding.profileData = senderBinding.profileData
         }
 
 
