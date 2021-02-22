@@ -59,7 +59,6 @@
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.arbonik.myapplication.ui.SplashFragment"
-        android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
             android:id="@+id/action_splashFragment_to_navigation_login"
@@ -73,7 +72,7 @@
     <fragment
         android:id="@+id/navigationProfileFragment"
         android:name="com.arbonik.myapplication.ui.profile.ProfileFragment"
-        android:label="ProfileOrderFragment" >
+        android:label="@string/profile_label" >
         <action
             android:id="@+id/action_profileOrderFragment_to_navigation_tracks"
             app:destination="@id/navigation_tracks" />
@@ -81,7 +80,7 @@
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.arbonik.myapplication.ui.registration.RegistrationFragment"
-        android:label="RegistrationFragment" >
+        android:label="@string/registrationFragmentLabel" >
         <action
             android:id="@+id/action_registrationFragment_to_navigationProfileFragment"
             app:destination="@id/navigationProfileFragment" />

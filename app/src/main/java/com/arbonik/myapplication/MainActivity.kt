@@ -27,5 +27,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
         navView.isVisible = true
     }
+
+
 }
 

@@ -40,6 +40,9 @@
     <string name="passwordRetryEditText">Повторите пароль</string>
     <string name="birthDay">День рождения</string>
     <string name="updateDataText">Обновить данные</string>
+    <string name="logout_menu">Logout</string>
+    <string name="profileFragmentLabel">Profile</string>
+    <string name="registrationFragmentLabel">Registration</string>
 
 
 </resources>

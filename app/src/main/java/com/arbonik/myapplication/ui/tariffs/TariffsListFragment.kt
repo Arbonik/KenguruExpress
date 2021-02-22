@@ -16,7 +16,7 @@ import java.time.temporal.ChronoUnit
 
 class TariffsListFragment : Fragment() {
 
-    private val viewModel: TariffsListViewModel by viewModels<TariffsListViewModel>()
+    private val viewModel: TariffsListViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
