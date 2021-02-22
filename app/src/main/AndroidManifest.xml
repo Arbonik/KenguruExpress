@@ -16,7 +16,7 @@
         tools:targetApi="m">
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -25,7 +25,7 @@
                 <action android:name="android.intent.action.VIEW"></action>
                 <category android:name="android.intent.category.DEFAULT"></category>
                 <category android:name="android.intent.category.BROWSABLE" />
-<!--                Не работает - с хоста в письме идет переадресация на другой хост, не распознается-->
+<!--              с хоста в письме идет переадресация на другой хост, не распознается-->
                 <data android:scheme="https" android:host="ke22.ru" />
 
             </intent-filter>
