@@ -2,7 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/delivery_menu"
-        android:title="@string/delivery_filter" />
+        android:title="@string/delivery_filter"
+        />
     <item
         android:id="@+id/price_menu"
         android:title="@string/price_filter" />

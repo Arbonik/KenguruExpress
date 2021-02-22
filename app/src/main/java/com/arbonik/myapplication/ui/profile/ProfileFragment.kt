@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import android.widget.DatePicker
 import androidx.annotation.RequiresApi
@@ -14,7 +15,7 @@ import androidx.fragment.app.viewModels
 import com.arbonik.myapplication.KenguruApplication
 import com.arbonik.myapplication.MainActivity
 import com.arbonik.myapplication.R
-import com.arbonik.myapplication.databinding.FragmentProfileBinding
+import com.arbonik.myapplication.databinding.UserDataContainerBinding
 import com.arbonik.myapplication.network.Resource
 import com.arbonik.myapplication.network.models.login.ProfileData
 import kotlin.system.exitProcess
@@ -23,7 +24,7 @@ import kotlin.system.exitProcess
 class ProfileFragment : Fragment() {
     private val viewModel by viewModels<ProfileFragmentViewModel>()
 
-    private lateinit var profileOrderBinding: FragmentProfileBinding
+    private lateinit var userDataBinding: UserDataContainerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,14 +43,14 @@ class ProfileFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        profileOrderBinding = FragmentProfileBinding.bind(view)
+        userDataBinding = UserDataContainerBinding.bind(view.findViewById(R.id.userDataInProfile))
         //Выбор даты рождения с помощью DatePicker
-        profileOrderBinding.birthDayEditText.setOnClickListener { v ->
+        userDataBinding.birthDayEditText.setOnClickListener { v ->
             AlertDialog.Builder(requireContext())
                 .setView(
                     DatePicker(requireContext()). apply {
                         setOnDateChangedListener { view, year, monthOfYear, dayOfMonth ->
-                            profileOrderBinding.birthDayEditText.setText("$dayOfMonth-$monthOfYear-$year")
+                            userDataBinding.birthDayEditText.setText("$dayOfMonth-$monthOfYear-$year")
                         }
                     }
                 )
@@ -58,20 +59,20 @@ class ProfileFragment : Fragment() {
                 .show()
         }
         viewModel.profileData.observe(viewLifecycleOwner) {
-            profileOrderBinding.profileData = it
+            userDataBinding.profileData = it
         }
 
-        profileOrderBinding.updateProfileDataButton.setOnClickListener {
+        view.findViewById<Button>(R.id.updateProfileDataButton).setOnClickListener {
             viewModel.updateProfileData(
                 ProfileData(
-                    date_birth = profileOrderBinding.birthDayEditText.text.toString(),
+                    date_birth = userDataBinding.birthDayEditText.text.toString(),
                     email = null,
-                    first_name = profileOrderBinding.name.text.toString(),
+                    first_name = userDataBinding.name.text.toString(),
                     is_active = null,
                     is_fully_confirmed = null,
-                    last_name = profileOrderBinding.surname.text.toString(),
-                    patronymic = profileOrderBinding.patronymic.text.toString(),
-                    phone = profileOrderBinding.phone.text.toString(),
+                    last_name = userDataBinding.surname.text.toString(),
+                    patronymic = userDataBinding.patronymic.text.toString(),
+                    phone = userDataBinding.phone.text.toString(),
                     phone_confirmed = null,
                     photo = null
                 )

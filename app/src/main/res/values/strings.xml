@@ -43,6 +43,10 @@
     <string name="logout_menu">Logout</string>
     <string name="profileFragmentLabel">Profile</string>
     <string name="registrationFragmentLabel">Registration</string>
+    <string name="costHintTextView">Цена отправления:</string>
+    <string name="hintDateDelivery">Дата доставки:</string>
+    <string name="hintDataPickUp">Дата получения:</string>
+    <string name="accept">Accept</string>
 
 
 </resources>

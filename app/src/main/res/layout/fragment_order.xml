@@ -9,22 +9,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <include
-            android:id="@+id/sender_include"
-            layout="@layout/fragment_profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+        <include android:id="@+id/locality_order_container"
+            layout="@layout/address_input"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+        <include android:id="@+id/cargo_order_container"
+            layout="@layout/container_calculate_cargo_size"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Данные получателя"
+            android:textColor="@color/light_blue_900" />
         <include
             android:id="@+id/recepier_include"
-            layout="@layout/fragment_profile"
+            layout="@layout/user_data_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <include
+            layout="@layout/tariff_data_item"/>
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Copy"/>
+            android:text="@string/accept"/>
     </LinearLayout>
 </ScrollView>

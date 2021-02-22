@@ -1,28 +1,22 @@
 package com.arbonik.myapplication.ui.order
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.databinding.Observable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.arbonik.myapplication.R
-import com.arbonik.myapplication.databinding.FragmentProfileBinding
-import com.arbonik.myapplication.ui.calculator.CalculatorViewModel
 import com.arbonik.myapplication.ui.views.AddressInputView
 
 class OrderFragment : Fragment() {
 
     lateinit var orderViewModel : OrderViewModel
-    lateinit var calculatorViewModel : CalculatorViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         orderViewModel = ViewModelProvider(this).get(OrderViewModel::class.java)
-        calculatorViewModel = ViewModelProvider(this).get(CalculatorViewModel::class.java)
         super.onCreate(savedInstanceState)
     }
 
@@ -42,24 +36,17 @@ class OrderFragment : Fragment() {
 //                viewLifecycleOwner)
 
         val recepierContainer = root.findViewById<LinearLayout>(R.id.recepier_include)
-        val senderContainer = root.findViewById<LinearLayout>(R.id.sender_include)
 
         val button = root.findViewById<Button>(R.id.button)
 
-        val recepierBinding = FragmentProfileBinding.bind(recepierContainer)
-        val senderBinding = FragmentProfileBinding.bind(senderContainer)
-
-        recepierBinding.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+//        val recepierBinding = FragmentProfileBinding.bind(recepierContainer)
+//
+//        recepierBinding.addOnPropertyChangedCallback(object :
+//            Observable.OnPropertyChangedCallback() {
+//            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
 //                orderViewModel.updateOrderData(recepierBinding.orderData ?: OrderData.instance())
-                Log.d("RE", recepierBinding.profileData.toString())
-            }
-        })
-
-        button.setOnClickListener {
-            recepierBinding.profileData = senderBinding.profileData
-        }
+//            }
+//        })
 
 
 //        orderViewModel.order.observe(senderContainer.binding?.lifecycleOwner!!){

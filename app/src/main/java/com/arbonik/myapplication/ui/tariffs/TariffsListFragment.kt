@@ -2,15 +2,21 @@ package com.arbonik.myapplication.ui.tariffs
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arbonik.myapplication.R
 import com.arbonik.myapplication.databinding.TariffDataItemBinding
 import com.arbonik.myapplication.network.models.tariff.Data
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
@@ -39,8 +45,10 @@ class TariffsListFragment : Fragment() {
         viewModel.sorted.observe(viewLifecycleOwner){
             when (it){
                 TariffSortedTypes.DEFAULT -> {};
-                TariffSortedTypes.PRICE -> tariffRecycler.adapter = TariffDataAdapter(viewModel.dao.value!!.sortedBy { it.price })
-                TariffSortedTypes.DELIVERY -> tariffRecycler.adapter = TariffDataAdapter(viewModel.dao.value!!.sortedBy { rangeBetweenDays(it.pickup_day!!, it.delivery_day!!)})
+                TariffSortedTypes.PRICE -> tariffRecycler.adapter =
+                    TariffDataAdapter(viewModel.dao.value!!.sortedBy { it.price })
+                TariffSortedTypes.DELIVERY -> tariffRecycler.adapter =
+                    TariffDataAdapter(viewModel.dao.value!!.sortedBy { rangeBetweenDays(it.pickup_day!!, it.delivery_day!!)})
             }
         }
 
@@ -53,7 +61,7 @@ class TariffsListFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.tariffs_filter, menu)
+        inflater.inflate(R.menu.tariffs_filter_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -81,6 +89,11 @@ class TariffsListFragment : Fragment() {
             val tariffItem = TariffDataItemBinding.bind(item)
             fun onBind(tariff: Data?) {
                 tariffItem.tariff = tariff
+                    Picasso.with(requireContext()).load(tariff!!.logo).into(tariffItem.imageView)
+                    Log.d("URL", tariff!!.logo.toString())
+                tariffItem.tariffDataContainer.setOnClickListener {
+                    findNavController().navigate(R.id.action_tariffsListFragment_to_orderFragment)
+                }
             }
         }
     }
