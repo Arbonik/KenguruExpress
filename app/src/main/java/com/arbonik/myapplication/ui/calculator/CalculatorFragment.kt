@@ -48,12 +48,12 @@ class CalculatorFragment : Fragment() {
 
         val calculateButton = root.findViewById<Button>(R.id.button_calculate)
         calculateButton.setOnClickListener {
-                if (viewModel.cargoSetSettings())
-                    viewModel.createProduct()
-                else
-                    Snackbar.make(requireContext(), root,"заполните все поля!", Snackbar.LENGTH_SHORT).show()
+            if (viewModel.cargoSetSettings())
+                viewModel.createProduct()
+            else
+//                    Snackbar.make(requireContext(), root,"заполните все поля!", Snackbar.LENGTH_SHORT).show()
 
-//            findNavController().navigate(R.id.action_navigation_calculator_to_tariffsListFragment)
+                findNavController().navigate(R.id.action_navigation_calculator_to_tariffsListFragment)
         }
         viewModel.currentCargoes.observe(viewLifecycleOwner) {
             if (it != null)

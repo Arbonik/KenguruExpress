@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LifecycleOwner
 import com.arbonik.myapplication.network.models.geography.LocalityResponse
@@ -14,7 +15,7 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView
 
 class AddressInputView(
     context: Context, attributeSet: AttributeSet
-) : MaterialAutoCompleteTextView(context, attributeSet){
+) : androidx.appcompat.widget.AppCompatAutoCompleteTextView(context, attributeSet){
     //Для отображения списка возможных пунктов отправления
     fun addObservable(calculatorViewModel : CalculatorViewModel, viewLifecycleOwner : LifecycleOwner){
 
