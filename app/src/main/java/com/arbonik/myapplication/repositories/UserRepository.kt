@@ -77,16 +77,11 @@ class UserRepository(context: Context) {
 
     //обновление данных пользователя
     fun updateProfileData(newData: ProfileData): Response<ProfileData> {
+        userData = newData
         val result = Common.USER.updateUserData(userToken!!, newData).execute()
-        if (result.isSuccessful){
-            userData = result.body()
-        }
-        else
-        {
             Log.d("BAD", result.message())
             Log.d("BAD", userToken!!)
             Log.d("BAD", result.code().toString())
-        }
         return result
     }
 

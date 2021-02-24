@@ -47,4 +47,5 @@ class AddressInputView(
                 val loc = localityResponse[it]
                 loc.full_title ?: ""
             })
+
 }

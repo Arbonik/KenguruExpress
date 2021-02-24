@@ -17,6 +17,8 @@
             layout="@layout/container_calculate_cargo_size"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"/>
+        <include
+            layout="@layout/tariff_data_item"/>
         <TextView
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
@@ -29,10 +31,9 @@
             layout="@layout/user_data_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <include
-            layout="@layout/tariff_data_item"/>
+
         <Button
-            android:id="@+id/button"
+            android:id="@+id/accept_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/accept"/>

@@ -22,20 +22,21 @@ class CalculatorViewModel(application: Application) : AndroidViewModel(applicati
     private val defaultDeliveryType = CargoType.DOCUMENT
     private val defaultDeliveryCargo = ProductRequest(delivery_type = defaultDeliveryType.type)
 
-    private val _loсality: MutableLiveData<LocalityResponse> = MutableLiveData()
-    val localityResponse: LiveData<LocalityResponse> = _loсality
-
-    var startLocalityResponse: MutableLiveData<LocalityResponse?> = MutableLiveData()
-    var finishLocalityResponse: MutableLiveData<LocalityResponse?> = MutableLiveData()
-
+    private val _locality: MutableLiveData<LocalityResponse> = MutableLiveData()
+    val localityResponse: LiveData<LocalityResponse> = _locality
 
     val typeProductLiveData = MutableLiveData<CargoType>(defaultDeliveryType)
     val productLiveData = MutableLiveData<Product>(defaultDeliveryCargo)
 
-    //Обновляется при создании груза на сервере
+    //Обновляется при создании груза с сервера
     val currentCargoes: MutableLiveData<ProductResponse> = MutableLiveData()
 
-    fun createProduct() {
+    fun isLocalitySetup() : Boolean{
+        return localityRepository.localityResponseToLocalityPair().fromCityId != null
+                && localityRepository.localityResponseToLocalityPair().toCityId != null
+    }
+
+    fun createCargo() {
         viewModelScope.launch(Dispatchers.IO) {
             val req = ProductRequest(
                 height = productLiveData.value?.height.toString(),
@@ -45,6 +46,7 @@ class CalculatorViewModel(application: Application) : AndroidViewModel(applicati
                 delivery_type = typeProductLiveData.value?.type.toString()
             )
             val value = productRepository.createCargo(req).execute().body()
+            productRepository.currentProductResponse = value
             currentCargoes.postValue(value!!)
         }
     }
@@ -52,12 +54,13 @@ class CalculatorViewModel(application: Application) : AndroidViewModel(applicati
     //Ищет тарифы для указанного груза и скачивает их в базу данных
     fun downloadTariffs(cargoRequest: ProductResponse) {
         viewModelScope.launch(Dispatchers.IO) {
+            val localityPair = localityRepository.localityResponseToLocalityPair()
             val departuresRequest = DeparturesRequest(
                 listOf(cargoRequest.id!!),
                 true,
                 true,
-                1,
-                2,
+                localityPair.fromCityId ?: 0,
+                localityPair.toCityId ?: 0,
                 null
             )
             val departuresResponce = departuresRepository.createDeparture(departuresRequest)!!
@@ -68,21 +71,21 @@ class CalculatorViewModel(application: Application) : AndroidViewModel(applicati
     fun setupStartLocality(fullName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = localityRepository.oneLocationSearch(fullName)
-            startLocalityResponse.postValue(result)
+            localityRepository.localityFrom = result
         }
     }
 
     fun setupFinishLocality(fullName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = localityRepository.oneLocationSearch(fullName)
-            finishLocalityResponse.postValue(result)
+            localityRepository.localityTo = result
         }
     }
 
     fun localitySearch(locality: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = localityRepository.localitySearch(locality)
-            _loсality.postValue(result)
+            _locality.postValue(result)
         }
     }
 

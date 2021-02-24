@@ -7,7 +7,7 @@ data class LocalityItem(
     val country_iso_code: String?,
     val fias: String?,
     val full_title: String?,
-    val id: String?,
+    val id: Int?,
     val kladr: String?,
     val latitude: String?,
     val locality: String?,

@@ -7,24 +7,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arbonik.myapplication.R
 import com.arbonik.myapplication.databinding.TrackItemBinding
+import com.arbonik.myapplication.model.FullRequest
 import com.arbonik.myapplication.model.Track
 import com.arbonik.myapplication.model.instanceTrack
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 
 class TracksFragment : Fragment() {
 
-    private val tracksViewModel by viewModels<TracksViewModel>()
+    private val viewModel by viewModels<TracksViewModel>()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -33,22 +33,29 @@ class TracksFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_tracks, container, false)
 
-        val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_tracks).apply {
-            adapter = TrackAdapter()
-            layoutManager = LinearLayoutManager(context)
+
+        //Тестовое отображени треков
+        val listView = root.findViewById<ListView>(R.id.recycler_view_tracks)
+
+        viewModel.mutableLiveData.observe(viewLifecycleOwner){
+            listView.adapter = ArrayAdapter<FullRequest>(requireContext(), android.R.layout.simple_list_item_1, it)
         }
-
-        tracksViewModel.tracksList.observe(viewLifecycleOwner){
-            (recyclerView.adapter as TrackAdapter).tracks = it
-            (recyclerView.adapter as TrackAdapter).notifyDataSetChanged()
-        }
-
-
-        val actionButton = root.findViewById<FloatingActionButton>(R.id.floating_action_button)
-            actionButton.setOnClickListener {
-                addTrackTolist()
-            }
-
+//        val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view_tracks).apply {
+//            adapter = TrackAdapter()
+//            layoutManager = LinearLayoutManager(context)
+//        }
+//
+//        viewModel.tracksList.observe(viewLifecycleOwner){
+//            (recyclerView.adapter as TrackAdapter).tracks = it
+//            (recyclerView.adapter as TrackAdapter).notifyDataSetChanged()
+//        }
+//
+//
+//        val actionButton = root.findViewById<FloatingActionButton>(R.id.floating_action_button)
+//            actionButton.setOnClickListener {
+//                addTrackTolist()
+//            }
+        viewModel.downloadRequests()
         return root
     }
 
@@ -57,6 +64,7 @@ class TracksFragment : Fragment() {
         navController.navigate(R.id.action_navigation_tracks_to_trackInformationFragment)
     }
 
+    @Deprecated("For tests")
     fun addTrackTolist() {
         var result = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             instanceTrack()
@@ -79,7 +87,7 @@ class TracksFragment : Fragment() {
                     })
                 // добавление пользовательского id
                 .setPositiveButton("Добавить") { dialog, which ->
-                        tracksViewModel.addTrack(result)
+//                        viewModel.addTrack(result)
                 }
                 .show()
     }

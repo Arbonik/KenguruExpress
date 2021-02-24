@@ -20,6 +20,8 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
+val ARG_TARIFF_ID_KEY = "tariff_id"
+
 class TariffsListFragment : Fragment() {
 
     private val viewModel: TariffsListViewModel by viewModels()
@@ -51,7 +53,6 @@ class TariffsListFragment : Fragment() {
                     TariffDataAdapter(viewModel.dao.value!!.sortedBy { rangeBetweenDays(it.pickup_day!!, it.delivery_day!!)})
             }
         }
-
         return root
     }
 
@@ -90,9 +91,10 @@ class TariffsListFragment : Fragment() {
             fun onBind(tariff: Data?) {
                 tariffItem.tariff = tariff
                     Picasso.with(requireContext()).load(tariff!!.logo).into(tariffItem.imageView)
-                    Log.d("URL", tariff!!.logo.toString())
                 tariffItem.tariffDataContainer.setOnClickListener {
-                    findNavController().navigate(R.id.action_tariffsListFragment_to_orderFragment)
+                    findNavController().navigate(R.id.action_tariffsListFragment_to_orderFragment, Bundle().apply {
+                        putString(ARG_TARIFF_ID_KEY, tariff.id.toString())
+                    })
                 }
             }
         }

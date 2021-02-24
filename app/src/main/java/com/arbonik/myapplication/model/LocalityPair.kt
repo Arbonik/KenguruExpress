@@ -6,8 +6,10 @@ import androidx.room.PrimaryKey
 //класс для сохранения запросов в базу
 @Entity(tableName = "localityTable")
 data class LocalityPair(
-    val fromCityId: Int = 0,
-    val toCityId: Int = 0
+    val fromCityId: Int? = null,
+    val fromCityTitle: String? = null,
+    val toCityId: Int? = null,
+    val toCityTitle: String? = null
 ){
     @PrimaryKey(autoGenerate = true)
     var id : Int = 0
