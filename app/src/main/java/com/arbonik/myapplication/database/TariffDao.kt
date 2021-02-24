@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.arbonik.myapplication.model.FullRequest
 import com.arbonik.myapplication.network.models.tariff.Data
-import kotlinx.coroutines.selects.select
 
 @Dao
 interface TariffDao {

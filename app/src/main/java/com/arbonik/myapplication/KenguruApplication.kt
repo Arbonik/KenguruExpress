@@ -7,7 +7,7 @@ import com.arbonik.myapplication.database.KenguruDatabase
 import com.arbonik.myapplication.repositories.LocalityRepository
 import com.arbonik.myapplication.repositories.DeparturesRepository
 import com.arbonik.myapplication.repositories.UserRepository
-import com.arbonik.myapplication.ui.calculator.ProductRepository
+import com.arbonik.myapplication.repositories.ProductRepository
 
 class KenguruApplication : Application() {
 

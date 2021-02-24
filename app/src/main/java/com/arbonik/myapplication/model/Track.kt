@@ -4,13 +4,10 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 import com.arbonik.myapplication.network.models.ProductResponse
 import com.arbonik.myapplication.network.models.tariff.Data
 import com.arbonik.myapplication.profile.OrderData
-import com.arbonik.myapplication.profile.Profile
 import com.arbonik.myapplication.ui.tracks.trackinformation.StatusRow
 import java.time.LocalDateTime
 
